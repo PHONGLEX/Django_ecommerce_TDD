@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    product detail
+    <ul>
+        <li>{{data.product__name}}</li>
+        <li>{{data.sku}}</li>
+        <li>{{data.product_inventory__units}}</li>
+    </ul>   
+
+    <ul>
+        {% for x in z %}
+            <li>
+                {{x.product_attribute__name}}
+
+                <ul>
+                {% for a in y %}
+                        {% if a.attribute_values__product_attribute__name == x.product_attribute__name %}
+                            
+                            {% if a.attribute_values__attribute_value in data.field_a %}
+                            <li >
+                                <div id="target-{{a.attribute_values__attribute_value}}" class="selected fw-bold" value="{{a.attribute_values__attribute_value}}" data-attribute="{{x.product_attribute__name}}">
+                                    {{a.attribute_values__attribute_value}}
+                                </div>
+                            </li>  
+                            {% else %}
+                            <li>
+                                <div id="target-{{a.attribute_values__attribute_value}}" value="{{a.attribute_values__attribute_value}}" data-attribute="{{x.product_attribute__name}}">
+                                    {{a.attribute_values__attribute_value}}
+                                </div>
+                            </li>  
+                            {% endif %}
+                                              
+                        {% endif %}
+                {% endfor %}
+                </ul>   
+            </li>
+        {% endfor %}
+    </ul>    
+    
+{% endblock content %}
+    

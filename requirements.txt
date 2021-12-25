@@ -1,0 +1,8 @@
+django
+python-dotenv
+psycopg2_binary
+pytest-django
+pytest-factoryboy
+pytest-selenium
+django-mptt
+pillow
