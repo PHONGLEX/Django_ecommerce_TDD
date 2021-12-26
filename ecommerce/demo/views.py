@@ -32,14 +32,14 @@ def product_detail(request, slug):
                                             .filter(attribute_values__attribute_value__in=filter_argurments) \
                                             .annotate(num_tags=Count('attribute_values')) \
                                             .filter(num_tags=len(filter_argurments)) \
-                                            .values("id", "sku", "product__name", "store_price", "product_inventory__units")
+                                            .values("id", "sku", "product__name", "store_price", "product_inventory__units") \
+                                            .annotate(field_a=ArrayAgg("attribute_values__attribute_value")).get()
     else:
         data = models.ProductInventory.objects.filter(product__slug=slug) \
                                                 .filter(is_default=True) \
                                                 .values("id", "sku", "product__name", "store_price", "product_inventory__units") \
                                                 .annotate(field_a=ArrayAgg("attribute_values__attribute_value")).get()
                                                 
-        print(data)                                                
                                             
     y = models.ProductInventory.objects.filter(product__slug=slug) \
                                         .distinct() \

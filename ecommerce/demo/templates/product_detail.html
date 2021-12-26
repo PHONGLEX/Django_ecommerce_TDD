@@ -38,6 +38,51 @@
             </li>
         {% endfor %}
     </ul>    
-    
+
+<script>
+    var d = {}
+    let textBoxes = document.querySelectorAll('[id^=target]')
+
+    let e = 0
+
+    let f = textBoxes.length
+
+    for (let i in textBoxes) {
+        if (e < f) {
+            if (textBoxes[i].classList.contains('selected')) {
+                d[textBoxes[i].getAttribute('data-attribute')] = textBoxes[i].getAttribute('value')
+            }
+        } else {
+            break
+        }   
+        e++;    
+    }
+
+    // document.addEventListener('click', function(e) {
+    //     let value = e.target.getAttribute('value')
+
+    //     d[e.target.getAttribute('data-attribute')] = e.target.getAttribute('value')
+
+    //     let querystring = buildUrlWithParams(d)
+    //     let url = window.location.href.split('?')[0]
+    //     window.location.href = url + '?' + querystring
+    // }, false)
+
+    $('[id^=target]').click(function () {
+        const value = this.getAttribute('value');
+        d[this.getAttribute('data-attribute')] = this.getAttribute('value')
+        const querystring = buildUrlWithParams(d)
+        const url = window.location.href.split('?')[0]
+        window.location.href = url + "?" + querystring;
+    }); 
+
+    function buildUrlWithParams(data) {
+        var searchparams = []
+        for (const d in data) {
+            searchparams.push(d+'='+data[d])
+        }
+        return searchparams.join('&')
+    }
+</script>
 {% endblock content %}
     
