@@ -49,5 +49,4 @@ def product_detail(request, slug):
                                             .values("product_attribute__name") \
                                             .distinct()                                   
     
-    
     return render(request, "product_detail.html", {"data": data, "y": y, "z": z})
